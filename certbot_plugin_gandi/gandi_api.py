@@ -33,7 +33,7 @@ def _headers(cfg):
 
 def _get_url(*segs):
     return 'https://dns.api.gandi.net/api/v5/{}'.format(
-        '/'.join(urllib.quote(seg, safe='') for seg in segs)
+        '/'.join(urllib.parse.quote(seg, safe='') for seg in segs)
     )
 
 
