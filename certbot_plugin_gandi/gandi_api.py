@@ -5,9 +5,9 @@ from collections import namedtuple
 from certbot.plugins import dns_common
 
 if six.PY2:
-    from urllib
+    import urllib
 else:
-    from urllib.parse
+    import urllib.parse
 
 _GandiConfig = namedtuple('_GandiConfig', ('api_key',))
 _BaseDomain = namedtuple('_BaseDomain', ('zone_uuid', 'fqdn'))
