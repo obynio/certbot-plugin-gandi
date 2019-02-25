@@ -6,3 +6,7 @@ installed.
 
 The plugin is installed in "edit" mode, so changes to the source will be
 effective immediately without any deployment step.
+
+# Install development package
+
+You can install development package using `pip install 'git+https://github.com/obynio/certbot-plugin-gandi.git'`

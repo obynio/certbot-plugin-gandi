@@ -8,10 +8,7 @@ customers to prove control of a domain name.
 
 1. Obtain a Gandi API token (see [Gandi LiveDNS API](https://doc.livedns.gandi.net/))
  
-2. Install the plugin:
-   ```
-   pip install 'git+https://github.com/obynio/certbot-plugin-gandi.git'
-   ```
+2. Install the plugin using `pip install certbit-plugin-gandi`
 
 3. Create a `gandi.ini` config file with the following contents and apply `chmod 600 gandi.ini` on it:
    ```
