@@ -4,14 +4,8 @@ import six
 from collections import namedtuple
 from certbot.plugins import dns_common
 
-if six.PY2:
-    import urllib
-else:
-    import urllib.parse
-
 _GandiConfig = namedtuple('_GandiConfig', ('api_key',))
 _BaseDomain = namedtuple('_BaseDomain', ('zone_uuid', 'fqdn'))
-
 
 def get_config(api_key):
     return _GandiConfig(api_key=api_key)
@@ -37,10 +31,7 @@ def _headers(cfg):
 
 
 def _get_url(*segs):
-    return 'https://dns.api.gandi.net/api/v5/{}'.format(
-        '/'.join((urllib.quote(seg, safe='') if six.PY2 else urllib.parse.quote(seg, safe='')) for seg in segs)
-    )
-
+    return 'https://dns.api.gandi.net/api/v5/{}'.format('/'.join(segs))
 
 def _request(cfg, method, segs, **kw):
     headers = _headers(cfg)
