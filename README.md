@@ -7,8 +7,8 @@ customers to prove control of a domain name.
 ## Usage
 
 1. Obtain a Gandi API token (see [Gandi LiveDNS API](https://doc.livedns.gandi.net/))
- 
-2. Install the plugin using `pip install certbit-plugin-gandi`
+
+2. Install the plugin using `pip install certbot-plugin-gandi`
 
 3. Create a `gandi.ini` config file with the following contents and apply `chmod 600 gandi.ini` on it:
    ```
@@ -18,12 +18,20 @@ customers to prove control of a domain name.
    to disallow access to other users.
 
 4. Run `certbot` and direct it to use the plugin for authentication and to use
-   the config file previously created: 
+   the config file previously created:
    ```
    certbot certonly -a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials gandi.ini -d domain.com
    ```
    Add additional options as required to specify an installation plugin etc.
-   
+
+## Updates
+
+This plugin can be updated by running:
+
+```
+pip install certbot-plugin-gandi --upgrade
+```
+
 ## Wildcard certificates
 
 This plugin is particularly useful when you need to obtain a wildcard certificate using dns challenges:
