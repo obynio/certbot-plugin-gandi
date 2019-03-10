@@ -56,8 +56,21 @@ def _get_relative_name(base_domain, name):
     return name[:-len(suffix)] if name.endswith(suffix) else None
 
 
-def _del_txt_record(cfg, base_domain, relative_name):
-    return _request(cfg, 'DELETE', ('zones', base_domain.zone_uuid, 'records', relative_name, 'TXT'))
+def _get_txt_record(cfg, base_domain, relative_name):
+    response = _request(cfg, 'GET', ['zones', base_domain.zone_uuid, 'records', relative_name, 'TXT'])
+    if not response.ok:
+        return []
+    zone = _get_json(response)
+    vals = zone.get('rrset_values')
+    if vals:
+        return vals
+    else:
+        return []
+
+
+def _update_txt_record(cfg, base_domain, relative_name, rrset):
+    return _request(cfg, 'PUT', ['zones', base_domain.zone_uuid, 'records', relative_name, 'TXT'],
+                                json={'rrset_values': rrset})
 
 
 def _update_record(cfg, domain, name, request_runner):
@@ -77,18 +90,18 @@ def _update_record(cfg, domain, name, request_runner):
 def add_txt_record(cfg, domain, name, value):
 
     def requester(base_domain, relative_name):
-        _del_txt_record(cfg, base_domain, relative_name)
-        return _request(cfg, 'POST',
-                        ('zones', base_domain.zone_uuid, 'records', relative_name, 'TXT'),
-                        json={'rrset_values': [value]})
+        rrset = [value] + _get_txt_record(cfg, base_domain, relative_name)
+        return _update_txt_record(cfg, base_domain, relative_name, rrset)
 
     return _update_record(cfg, domain, name, requester)
 
 
-def del_txt_record(cfg, domain, name):
+def del_txt_record(cfg, domain, name, value):
 
     def requester(base_domain, relative_name):
-        return _del_txt_record(cfg, base_domain, relative_name)
+        existing = _get_txt_record(cfg, base_domain, relative_name)
+        rrset = filter(lambda rr: rr.strip('"') != value, existing)
+        return _update_txt_record(cfg, base_domain, relative_name, rrset)
 
     return _update_record(cfg, domain, name, requester)
 

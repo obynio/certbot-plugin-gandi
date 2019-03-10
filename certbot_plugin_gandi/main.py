@@ -51,7 +51,7 @@ class Authenticator(dns_common.DNSAuthenticator):
 
 
     def _cleanup(self, domain, validation_name, validation):
-        error = gandi_api.del_txt_record(self._get_gandi_config(), domain, validation_name)
+        error = gandi_api.del_txt_record(self._get_gandi_config(), domain, validation_name, validation)
         if error is not None:
             logger.warn('Unable to find or delete the DNS TXT record: %s', error)
 
