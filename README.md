@@ -24,7 +24,7 @@ customers to prove control of a domain name.
    ```
    Add additional options as required to specify an installation plugin etc.
 
-Please note that this solution is usually not relevant if you're using Gandi's web hosting services as Gandi offers a free automated certificates for all simplehosting plans having SSL in the admin interface.
+Please note that this solution is usually not relevant if you're using Gandi's web hosting services as Gandi offers free automated certificates for all simplehosting plans having SSL in the admin interface.
 
 ## Updates
 
