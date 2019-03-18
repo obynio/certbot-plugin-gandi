@@ -100,7 +100,7 @@ def del_txt_record(cfg, domain, name, value):
 
     def requester(base_domain, relative_name):
         existing = _get_txt_record(cfg, base_domain, relative_name)
-        rrset = filter(lambda rr: rr.strip('"') != value, existing)
+        rrset = list(filter(lambda rr: rr.strip('"') != value, existing))
         return _update_txt_record(cfg, base_domain, relative_name, rrset)
 
     return _update_record(cfg, domain, name, requester)
