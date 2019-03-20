@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='certbot-plugin-gandi',
-    version='1.1.0',
+    version='1.1.1',
     author="Yohann Leon",
     author_email="yohann@leon.re",
     description="Certbot plugin for authentication using Gandi LiveDNS",
