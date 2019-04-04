@@ -39,12 +39,14 @@ class Authenticator(dns_common.DNSAuthenticator):
             'credentials',
             'Gandi credentials INI file',
             {
-                'api-key': 'API key for Gandi account'
+                'api-key': 'API key for Gandi account',
+                'ressource-type': 'Use Zones or Domains'
             }
         )
 
 
     def _perform(self, domain, validation_name, validation):
+        config = self._get_gandi_config()
         error = gandi_api.add_txt_record(self._get_gandi_config(), domain, validation_name, validation)
         if error is not None:
             raise errors.PluginError('An error occurred adding the DNS TXT record: {0}'.format(error))
@@ -57,4 +59,5 @@ class Authenticator(dns_common.DNSAuthenticator):
 
 
     def _get_gandi_config(self):
-        return gandi_api.get_config(api_key = self.credentials.conf('api-key'))
+        return gandi_api.get_config(api_key = self.credentials.conf('api-key'),
+                                    resource_type = self.credentials.conf('resource-type'))

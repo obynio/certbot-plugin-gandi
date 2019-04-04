@@ -4,11 +4,12 @@ import six
 from collections import namedtuple
 from certbot.plugins import dns_common
 
-_GandiConfig = namedtuple('_GandiConfig', ('api_key',))
+_GandiConfig = namedtuple('_GandiConfig', ('api_key', 'resource_type'))
 _BaseDomain = namedtuple('_BaseDomain', ('zone_uuid', 'fqdn'))
 
-def get_config(api_key):
-    return _GandiConfig(api_key=api_key)
+
+def get_config(api_key, resource_type):
+    return _GandiConfig(api_key=api_key, resource_type=resource_type)
 
 
 def _get_json(response):
@@ -23,6 +24,14 @@ def _get_response_message(response, default='<No reason given>'):
     return _get_json(response).get('message', default)
 
 
+def _get_dns_type_and_source(cfg, source):
+    if cfg.resource_type == 'domains':
+        value = { 'dns-type': cfg.resource_type, 'dns-source': source.fqdn }
+    else:
+        value = { 'dns-type': cfg.resource_type, 'dns-source': source.zone_uuid }
+    return value
+
+
 def _headers(cfg):
     return {
         'Content-Type': 'application/json',
@@ -32,6 +41,7 @@ def _headers(cfg):
 
 def _get_url(*segs):
     return 'https://dns.api.gandi.net/api/v5/{}'.format('/'.join(segs))
+
 
 def _request(cfg, method, segs, **kw):
     headers = _headers(cfg)
@@ -57,7 +67,8 @@ def _get_relative_name(base_domain, name):
 
 
 def _get_txt_record(cfg, base_domain, relative_name):
-    response = _request(cfg, 'GET', ['zones', base_domain.zone_uuid, 'records', relative_name, 'TXT'])
+    url = _get_dns_type_and_source(cfg, base_domain)
+    response = _request(cfg, 'GET', [url['dns-type'], url['dns-source'], 'records', relative_name, 'TXT'])
     if not response.ok:
         return []
     zone = _get_json(response)
@@ -69,7 +80,8 @@ def _get_txt_record(cfg, base_domain, relative_name):
 
 
 def _update_txt_record(cfg, base_domain, relative_name, rrset):
-    return _request(cfg, 'PUT', ['zones', base_domain.zone_uuid, 'records', relative_name, 'TXT'],
+    url = _get_dns_type_and_source(cfg, base_domain)
+    return _request(cfg, 'PUT', [url['dns-type'], url['dns-source'], 'records', relative_name, 'TXT'],
                                 json={'rrset_values': rrset})
 
 
