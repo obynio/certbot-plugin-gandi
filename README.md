@@ -47,5 +47,5 @@ certbot certonly -a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credenti
 You can setup automatic renewal using `crontab` with the following job for weekly renewal attempts:
 
 ```
-* 1 * * 1 certbot renew -q -a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials /etc/letsencrypt/gandi/gandi.ini --server https://acme-v02.api.letsencrypt.org/directory
+0 0 * * 0 certbot renew -q -a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials /etc/letsencrypt/gandi/gandi.ini --server https://acme-v02.api.letsencrypt.org/directory
 ```
