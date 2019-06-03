@@ -40,7 +40,7 @@ class Authenticator(dns_common.DNSAuthenticator):
             'Gandi credentials INI file',
             {
                 'api-key': 'API key for Gandi account',
-                'ressource-type': 'Use Zones or Domains'
+                'resource-type': 'Use Zones or Domains'
             }
         )
 
