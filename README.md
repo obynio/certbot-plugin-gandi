@@ -24,7 +24,7 @@ customers to prove control of a domain name.
    ```
    Add additional options as required to specify an installation plugin etc.
 
-Please note that this solution is usually not relevant if you're using Gandi's web hosting services as Gandi offers free automated certificates for all simplehosting plans having SSL in the admin interface.
+Please note that this solution is usually not relevant if you're using Gandi's web hosting services as Gandi offers free automated certificates for all simplehosting plans having SSL in the admin interface. Huge thanks to Michael Porter for its original work !
 
 ## Updates
 
@@ -49,7 +49,3 @@ You can setup automatic renewal using `crontab` with the following job for weekl
 ```
 0 0 * * 0 certbot renew -q -a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials /etc/letsencrypt/gandi/gandi.ini --server https://acme-v02.api.letsencrypt.org/directory
 ```
-
-## Credits
-
-Huge thanks to Michael Porter for its original work :)
