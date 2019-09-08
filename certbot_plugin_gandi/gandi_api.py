@@ -5,7 +5,7 @@ from collections import namedtuple
 from certbot.plugins import dns_common
 
 _GandiConfig = namedtuple('_GandiConfig', ('api_key',))
-_BaseDomain = namedtuple('_BaseDomain', ('zone_uuid', 'fqdn'))
+_BaseDomain = namedtuple('_BaseDomain', ('fqdn'))
 
 def get_config(api_key):
     return _GandiConfig(api_key=api_key)
@@ -44,10 +44,9 @@ def _get_base_domain(cfg, domain):
         response = _request(cfg, 'GET', ('domains', candidate_base_domain))
         if response.ok:
             data = _get_json(response)
-            zone_uuid = data.get('zone_uuid')
             fqdn = data.get('fqdn')
-            if zone_uuid and fqdn:
-                return _BaseDomain(zone_uuid=zone_uuid, fqdn=fqdn)
+            if fqdn:
+                return _BaseDomain(fqdn=fqdn)
     return None
 
 
@@ -57,11 +56,11 @@ def _get_relative_name(base_domain, name):
 
 
 def _get_txt_record(cfg, base_domain, relative_name):
-    response = _request(cfg, 'GET', ['zones', base_domain.zone_uuid, 'records', relative_name, 'TXT'])
+    response = _request(cfg, 'GET', ['domains', base_domain.fqdn, 'records', relative_name, 'TXT'])
     if not response.ok:
         return []
-    zone = _get_json(response)
-    vals = zone.get('rrset_values')
+    data = _get_json(response)
+    vals = data.get('rrset_values')
     if vals:
         return vals
     else:
@@ -69,7 +68,7 @@ def _get_txt_record(cfg, base_domain, relative_name):
 
 
 def _update_txt_record(cfg, base_domain, relative_name, rrset):
-    return _request(cfg, 'PUT', ['zones', base_domain.zone_uuid, 'records', relative_name, 'TXT'],
+    return _request(cfg, 'PUT', ['domains', base_domain.fqdn, 'records', relative_name, 'TXT'],
                                 json={'rrset_values': rrset})
 
 
