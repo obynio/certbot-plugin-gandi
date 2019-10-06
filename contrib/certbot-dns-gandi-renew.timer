@@ -1,0 +1,9 @@
+[Unit]
+Description=Weekly DNS renewal check
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+
+[Install]
+WantedBy=timers.target
