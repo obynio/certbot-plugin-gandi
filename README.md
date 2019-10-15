@@ -26,13 +26,10 @@ customers to prove control of a domain name.
 
 Please note that this solution is usually not relevant if you're using Gandi's web hosting services as Gandi offers free automated certificates for all simplehosting plans having SSL in the admin interface. Huge thanks to Michael Porter for its original work !
 
-## Updates
+## Distribution
 
-This plugin can be updated by running:
-
-```
-pip install certbot-plugin-gandi --upgrade
-```
+* PyPI: https://pypi.org/project/certbot-plugin-gandi/
+* Archlinux: https://aur.archlinux.org/packages/certbot-dns-gandi-git/
 
 ## Wildcard certificates
 
