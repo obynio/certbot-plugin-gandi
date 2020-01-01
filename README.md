@@ -12,7 +12,11 @@ customers to prove control of a domain name.
 
 3. Create a `gandi.ini` config file with the following contents and apply `chmod 600 gandi.ini` on it:
    ```
+   # live dns v5 api key
    certbot_plugin_gandi:dns_api_key=APIKEY
+
+   # optional organization id, remove it if not used
+   certbot_plugin_gandi:dns_sharing_id=SHARINGID
    ```
    Replace `APIKEY` with your Gandi API key and ensure permissions are set
    to disallow access to other users.

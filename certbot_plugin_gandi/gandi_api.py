@@ -4,11 +4,11 @@ import six
 from collections import namedtuple
 from certbot.plugins import dns_common
 
-_GandiConfig = namedtuple('_GandiConfig', ('api_key',))
+_GandiConfig = namedtuple('_GandiConfig', ('api_key', 'sharing_id',))
 _BaseDomain = namedtuple('_BaseDomain', ('fqdn'))
 
-def get_config(api_key):
-    return _GandiConfig(api_key=api_key)
+def get_config(api_key, sharing_id):
+    return _GandiConfig(api_key=api_key, sharing_id=sharing_id)
 
 
 def _get_json(response):
@@ -36,7 +36,7 @@ def _get_url(*segs):
 def _request(cfg, method, segs, **kw):
     headers = _headers(cfg)
     url = _get_url(*segs)
-    return requests.request(method, url, headers=headers, **kw)
+    return requests.request(method, url, headers=headers, params={'sharing_id': cfg.sharing_id}, **kw)
 
 
 def _get_base_domain(cfg, domain):
