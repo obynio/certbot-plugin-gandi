@@ -1,5 +1,6 @@
 import zope.interface
 import logging
+import uuid
 
 from certbot import interfaces, errors
 from certbot.plugins import dns_common
@@ -33,6 +34,13 @@ class Authenticator(dns_common.DNSAuthenticator):
         return 'This plugin configures a DNS TXT record to respond to a dns-01 challenge using ' + \
                'the Gandi LiveDNS API.'
 
+    def _validate_sharing_id(self, credentials):
+        sharing_id = credentials.conf('sharing-id')
+        if sharing_id:
+            try:
+                uuid.UUID(sharing_id, version=4)
+            except ValueError:
+                raise errors.PluginError("Invalid sharing_id: {0}.".format(sharing_id))
 
     def _setup_credentials(self):
         self.credentials = self._configure_credentials(
@@ -40,8 +48,8 @@ class Authenticator(dns_common.DNSAuthenticator):
             'Gandi credentials INI file',
             {
                 'api-key': 'API key for Gandi account',
-                'sharing-id': 'Optional Gandi organization ID'
-            }
+            },
+            self._validate_sharing_id
         )
 
 
