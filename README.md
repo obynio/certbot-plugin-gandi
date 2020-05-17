@@ -30,6 +30,8 @@ customers to prove control of a domain name.
 
 Please note that this solution is usually not relevant if you're using Gandi's web hosting services as Gandi offers free automated certificates for all simplehosting plans having SSL in the admin interface. Huge thanks to Michael Porter for its original work !
 
+Be aware that the plugin configuration must be provided by CLI, configuration for third-party plugins in `cli.ini` is not supported by certbot for the moment. Please refer to [#4351](https://github.com/certbot/certbot/issues/4351), [#6504](https://github.com/certbot/certbot/issues/6504) and [#7681](https://github.com/certbot/certbot/issues/7681) for details.
+
 ## Distribution
 
 * PyPI: https://pypi.org/project/certbot-plugin-gandi/
