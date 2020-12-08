@@ -52,3 +52,12 @@ You can setup automatic renewal using `crontab` with the following job for weekl
 ```
 0 0 * * 0 certbot renew -q -a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials /etc/letsencrypt/gandi/gandi.ini --server https://acme-v02.api.letsencrypt.org/directory
 ```
+
+## FAQ
+
+> Why do you keep this plugin a third-party plugin ? Just merge it with certbot ?
+
+This Gandi plugin is a third party plugin mainly because this plugin is not officially backed by Gandi and because Certbot [does not accept](https://certbot.eff.org/docs/contributing.html?highlight=propagation#writing-your-own-plugin) new plugin submissions.
+
+![no_submission](https://user-images.githubusercontent.com/2095991/101479748-fd9da280-3952-11eb-884f-491470718f4d.png)
+
