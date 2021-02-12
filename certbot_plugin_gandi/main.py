@@ -19,8 +19,15 @@ class Authenticator(dns_common.DNSAuthenticator):
     description = 'Obtain certificates using a DNS TXT record (if you are using Gandi for DNS).'
 
 
-    def __init__(self, *args, **kwargs):
-        super(Authenticator, self).__init__(*args, **kwargs)
+    def __init__(self, config, name, **kwargs):
+        if name in ("dns", "certbot-plugin-gandi:dns"):
+            logger.warning("""Certbot is moving to remove 3rd party plugins prefixes.
+
+Please use --authenticator dns-gandi --dns-gandi-credentials
+
+See: https://github.com/certbot/certbot/pull/8131
+""")
+        super(Authenticator, self).__init__(config, name, **kwargs)
         self.credentials = None
 
 
