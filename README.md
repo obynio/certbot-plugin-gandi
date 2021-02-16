@@ -24,7 +24,7 @@ customers to prove control of a domain name.
 4. Run `certbot` and direct it to use the plugin for authentication and to use
    the config file previously created:
    ```
-   certbot certonly -a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials gandi.ini -d domain.com
+   certbot certonly --authenticator dns-gandi --dns-gandi-credentials /etc/letsencrypt/gandi/gandi.ini gandi.ini -d domain.com
    ```
    Add additional options as required to specify an installation plugin etc.
 
@@ -42,7 +42,7 @@ Be aware that the plugin configuration must be provided by CLI, configuration fo
 This plugin is particularly useful when you need to obtain a wildcard certificate using dns challenges:
 
 ```
-certbot certonly -a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials gandi.ini -d domain.com -d \*.domain.com --server https://acme-v02.api.letsencrypt.org/directory
+certbot certonly --authenticator dns-gandi --dns-gandi-credentials /etc/letsencrypt/gandi/gandi.ini -d domain.com -d \*.domain.com --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 ## Automatic renewal
@@ -50,10 +50,14 @@ certbot certonly -a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credenti
 You can setup automatic renewal using `crontab` with the following job for weekly renewal attempts:
 
 ```
-0 0 * * 0 certbot renew -q -a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials /etc/letsencrypt/gandi/gandi.ini --server https://acme-v02.api.letsencrypt.org/directory
+0 0 * * 0 certbot renew -q --authenticator dns-gandi --dns-gandi-credentials /etc/letsencrypt/gandi/gandi.ini --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
 ## FAQ
+
+> I have a warning telling me `Plugin legacy name certbot-plugin-gandi:dns may be removed in a future version. Please use dns instead.`
+
+Certbot had moved to remove 3rd party plugins prefixes. Please use `--authenticator dns-gandi --dns-gandi-credentials`. See [certbot/8131](https://github.com/certbot/certbot/pull/8131) and [certbot-plugin-gandi/23](https://github.com/obynio/certbot-plugin-gandi/issues/23) for details.
 
 > Why do you keep this plugin a third-party plugin ? Just merge it with certbot ?
 
