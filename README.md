@@ -13,10 +13,10 @@ customers to prove control of a domain name.
 3. Create a `gandi.ini` config file with the following contents and apply `chmod 600 gandi.ini` on it:
    ```
    # live dns v5 api key
-   certbot_plugin_gandi:dns_api_key=APIKEY
+   dns_gandi_api_key=APIKEY
 
    # optional organization id, remove it if not used
-   certbot_plugin_gandi:dns_sharing_id=SHARINGID
+   dns_gandi_sharing_id=SHARINGID
    ```
    Replace `APIKEY` with your Gandi API key and ensure permissions are set
    to disallow access to other users.
@@ -24,7 +24,7 @@ customers to prove control of a domain name.
 4. Run `certbot` and direct it to use the plugin for authentication and to use
    the config file previously created:
    ```
-   certbot certonly --authenticator dns-gandi --dns-gandi-credentials /etc/letsencrypt/gandi/gandi.ini gandi.ini -d domain.com
+   certbot certonly --authenticator dns-gandi --dns-gandi-credentials /etc/letsencrypt/gandi/gandi.ini -d domain.com
    ```
    Add additional options as required to specify an installation plugin etc.
 
@@ -57,7 +57,7 @@ You can setup automatic renewal using `crontab` with the following job for weekl
 
 > I have a warning telling me `Plugin legacy name certbot-plugin-gandi:dns may be removed in a future version. Please use dns instead.`
 
-Certbot had moved to remove 3rd party plugins prefixes. Please use `--authenticator dns-gandi --dns-gandi-credentials`. See [certbot/8131](https://github.com/certbot/certbot/pull/8131) and [certbot-plugin-gandi/23](https://github.com/obynio/certbot-plugin-gandi/issues/23) for details.
+Certbot had moved to remove 3rd party plugins prefixes. Please use `--authenticator dns-gandi --dns-gandi-credentials`. See [certbot/8131](https://github.com/certbot/certbot/pull/8131) and [certbot-plugin-gandi/23](https://github.com/obynio/certbot-plugin-gandi/issues/23) for details. Please make sure to update the configuration file to the new format.
 
 > Why do you keep this plugin a third-party plugin ? Just merge it with certbot ?
 
