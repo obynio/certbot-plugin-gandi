@@ -13,6 +13,7 @@ customers to prove control of a domain name.
 2. Install the plugin using `pip install certbot-plugin-gandi`
 
 3. Create a `gandi.ini` config file with the following contents and apply `chmod 600 gandi.ini` on it:
+
    ```
    # live dns v5 api key
    dns_gandi_api_key=APIKEY
@@ -20,6 +21,7 @@ customers to prove control of a domain name.
    # optional organization id, remove it if not used
    dns_gandi_sharing_id=SHARINGID
    ```
+
    Replace `APIKEY` with your Gandi API key and ensure permissions are set
    to disallow access to other users.
 
@@ -38,9 +40,9 @@ Be aware that the plugin configuration must be provided by CLI, configuration fo
 
 PyPI is the upstream distribution channel, other channels are not maintained by me.
 
-* PyPI: https://pypi.org/project/certbot-plugin-gandi/
-* Archlinux: https://aur.archlinux.org/packages/certbot-dns-gandi-git/
-* Debian: https://packages.debian.org/sid/main/python3-certbot-dns-gandi
+- PyPI: https://pypi.org/project/certbot-plugin-gandi/
+- Archlinux: https://aur.archlinux.org/packages/certbot-dns-gandi-git/
+- Debian: https://packages.debian.org/sid/main/python3-certbot-dns-gandi
 
 Every release pushed to PyPI is signed with GPG.
 
@@ -62,7 +64,7 @@ You can setup automatic renewal using `crontab` with the following job for weekl
 
 ## Reading material
 
-* A [blog post](https://www.linux.it/~ema/posts/letsencrypt-the-manual-plugin-is-not-working/) by [@realEmaRocca](https://twitter.com/realEmaRocca) describing how to use this plugin on Debian
+- A [blog post](https://www.linux.it/~ema/posts/letsencrypt-the-manual-plugin-is-not-working/) by [@realEmaRocca](https://twitter.com/realEmaRocca) describing how to use this plugin on Debian
 
 ## FAQ
 
@@ -72,8 +74,9 @@ Certbot had moved to remove 3rd party plugins prefixes since v1.7.0. Please swit
 For the time being, you can still use prefixes, but if you do so and keep using prefix-based cli arguments, stay consistent and use prefix-based configuration in the ini file.
 
 #### New post-prefix configuration for certbot>=1.7.0
-* `--authenticator dns-gandi --dns-gandi-credentials`
-* `gandi.ini`
+
+- `--authenticator dns-gandi --dns-gandi-credentials`
+- `gandi.ini`
 
 ```
 # live dns v5 api key
@@ -86,8 +89,8 @@ dns_gandi_sharing_id=SHARINGID
 
 #### Legacy prefix-based configuration for certbot<1.7.0
 
-* `-a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials`
-* `gandi.ini`
+- `-a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials`
+- `gandi.ini`
 
 ```
  # live dns v5 api key
