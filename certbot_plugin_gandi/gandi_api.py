@@ -26,12 +26,12 @@ def _get_response_message(response, default='<No reason given>'):
 def _headers(cfg):
     return {
         'Content-Type': 'application/json',
-        'X-Api-Key': cfg.api_key
+        'Authorization': 'Apikey ' + cfg.api_key
     }
 
 
 def _get_url(*segs):
-    return 'https://dns.api.gandi.net/api/v5/{}'.format('/'.join(segs))
+    return 'https://api.gandi.net/v5/livedns/{}'.format('/'.join(segs))
 
 def _request(cfg, method, segs, **kw):
     headers = _headers(cfg)
