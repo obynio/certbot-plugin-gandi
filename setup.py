@@ -21,7 +21,6 @@ setup(
     ],
     entry_points={
         'certbot.plugins': [
-            'dns = certbot_plugin_gandi.main:Authenticator',
             'dns-gandi = certbot_plugin_gandi.main:Authenticator',
         ],
     },
