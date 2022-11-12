@@ -20,6 +20,9 @@ class Authenticator(dns_common.DNSAuthenticator):
 
 
     def __init__(self, config, name, **kwargs):
+        if name in ("dns", "certbot-plugin-gandi:dns"):
+            logger.warning("Certbot is moving to remove 3rd party plugins prefixes. Please use --authenticator dns-gandi --dns-gandi-credentials")
+
         super(Authenticator, self).__init__(config, name, **kwargs)
         self.credentials = None
 
