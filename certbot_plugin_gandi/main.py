@@ -10,6 +10,7 @@ from . import gandi_api
 
 logger = logging.getLogger(__name__)
 
+
 def try_registration(cls):
     try:
         interfaces.Installer.register(cls)
