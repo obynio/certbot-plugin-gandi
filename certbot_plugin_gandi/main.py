@@ -1,7 +1,8 @@
+import zope.interface
 import logging
 import uuid
 
-from certbot import errors
+from certbot import interfaces, errors
 from certbot.plugins import dns_common
 
 from . import gandi_api
