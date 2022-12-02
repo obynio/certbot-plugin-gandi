@@ -11,16 +11,16 @@ from . import gandi_api
 logger = logging.getLogger(__name__)
 
 
-def try_registration(cls):
+def register_authenticator(cls):
     try:
-        interfaces.Installer.register(cls)
+        interfaces.Authenticator.register(cls)
     except AttributeError:
         pass
+    zope.interface.implementer(interfaces.IAuthenticator)(cls) 
+    zope.interface.provider(interfaces.IPluginFactory)(cls)
     return cls 
-
-@try_registration
-@zope.interface.implementer(interfaces.IAuthenticator)
-@zope.interface.provider(interfaces.IPluginFactory)
+    
+@register_authenticator
 class Authenticator(dns_common.DNSAuthenticator):
     """DNS Authenticator for Gandi (using LiveDNS)."""
 
