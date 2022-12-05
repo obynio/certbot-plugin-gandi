@@ -41,8 +41,9 @@ PyPI is the upstream distribution channel, other channels are not maintained by 
 * PyPI: https://pypi.org/project/certbot-plugin-gandi/
 * Archlinux: https://aur.archlinux.org/packages/certbot-dns-gandi-git/
 * Debian: https://packages.debian.org/sid/main/python3-certbot-dns-gandi
+* Ubuntu: https://packages.ubuntu.com/kinetic/python3-certbot-dns-gandi
 
-Every release pushed to PyPI is signed with GPG.
+Latests builds are also available on Launchpad: https://launchpad.net/ubuntu/+source/python-certbot-dns-gandi
 
 ## Wildcard certificates
 
