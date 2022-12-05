@@ -42,8 +42,11 @@ PyPI is the upstream distribution channel, other channels are not maintained by 
 * Archlinux: https://aur.archlinux.org/packages/certbot-dns-gandi-git/
 * Debian: https://packages.debian.org/sid/main/python3-certbot-dns-gandi
 * Ubuntu: https://packages.ubuntu.com/kinetic/python3-certbot-dns-gandi
+* Snap: Not yet packaged. I'm lazy.
 
 Latests builds are also available on Launchpad: https://launchpad.net/ubuntu/+source/python-certbot-dns-gandi
+
+Be careful, installing this plugin with PyPI will also install certbot via PyPI which may conflict with any other certbot already installed on your system.
 
 ## Wildcard certificates
 
