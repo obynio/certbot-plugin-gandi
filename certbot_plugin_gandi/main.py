@@ -1,4 +1,3 @@
-import zope.interface
 import logging
 import uuid
 
@@ -7,19 +6,17 @@ from certbot.plugins import dns_common
 
 from . import gandi_api
 
-
 logger = logging.getLogger(__name__)
-
 
 def register_authenticator(cls):
     try:
         interfaces.Authenticator.register(cls)
     except AttributeError:
-        pass
-    zope.interface.implementer(interfaces.IAuthenticator)(cls) 
-    zope.interface.provider(interfaces.IPluginFactory)(cls)
+        import zope.interface
+        zope.interface.implementer(interfaces.IAuthenticator)(cls)
+        zope.interface.provider(interfaces.IPluginFactory)(cls)
     return cls 
-    
+
 @register_authenticator
 class Authenticator(dns_common.DNSAuthenticator):
     """DNS Authenticator for Gandi (using LiveDNS)."""
