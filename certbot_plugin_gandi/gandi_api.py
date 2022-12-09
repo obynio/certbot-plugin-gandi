@@ -5,7 +5,7 @@ from collections import namedtuple
 from certbot.plugins import dns_common
 
 _GandiConfig = namedtuple('_GandiConfig', ('api_key', 'sharing_id',))
-_BaseDomain = namedtuple('_BaseDomain', ('fqdn'))
+_BaseDomain = namedtuple('_BaseDomain', ('fqdn', 'error'))
 
 def get_config(api_key, sharing_id):
     return _GandiConfig(api_key=api_key, sharing_id=sharing_id)
@@ -42,12 +42,14 @@ def _request(cfg, method, segs, **kw):
 def _get_base_domain(cfg, domain):
     for candidate_base_domain in dns_common.base_domain_name_guesses(domain):
         response = _request(cfg, 'GET', ('domains', candidate_base_domain))
+        data = _get_json(response)
         if response.ok:
-            data = _get_json(response)
             fqdn = data.get('fqdn')
             if fqdn:
-                return _BaseDomain(fqdn=fqdn)
-    return None
+                return _BaseDomain(fqdn=fqdn,error=None)
+        else:
+            error = str.lower(data.get('message'))
+            return _BaseDomain(fqdn=None,error=error)
 
 
 def _get_relative_name(base_domain, name):
@@ -75,8 +77,9 @@ def _update_txt_record(cfg, base_domain, relative_name, rrset):
 def _update_record(cfg, domain, name, request_runner):
 
     base_domain = _get_base_domain(cfg, domain)
-    if base_domain is None:
-        return 'Unable to get base domain for "{}"'.format(domain)
+    error = base_domain.error
+    if error is not None:
+        return f"{error} Domain: {domain}"
     relative_name = _get_relative_name(base_domain, name)
     if relative_name is None:
         return 'Unable to derive relative name for "{}"'.format(name)
@@ -103,5 +106,3 @@ def del_txt_record(cfg, domain, name, value):
         return _update_txt_record(cfg, base_domain, relative_name, rrset)
 
     return _update_record(cfg, domain, name, requester)
-
-
