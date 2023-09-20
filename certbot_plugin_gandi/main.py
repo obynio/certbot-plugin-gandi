@@ -15,7 +15,7 @@ def register_authenticator(cls):
         import zope.interface
         zope.interface.implementer(interfaces.IAuthenticator)(cls)
         zope.interface.provider(interfaces.IPluginFactory)(cls)
-    return cls 
+    return cls
 
 @register_authenticator
 class Authenticator(dns_common.DNSAuthenticator):
@@ -47,14 +47,22 @@ class Authenticator(dns_common.DNSAuthenticator):
             except ValueError:
                 raise errors.PluginError("Invalid sharing_id: {0}.".format(sharing_id))
 
+    def _validate(self, credentials):
+        self._validate_sharing_id(credentials)
+
+        # Either api-key or token must be set
+        if not credentials.conf('api-key') and not credentials.conf('token'):
+            raise errors.PluginError(
+                'Missing property in credentials configuration file {0}: {1}'.format(
+                    credentials.confobj.filename, 'dns_gandi_api_key or dns_gandi_token must be set')
+                )
+
     def _setup_credentials(self):
         self.credentials = self._configure_credentials(
             'credentials',
             'Gandi credentials INI file',
-            {
-                'api-key': 'API key for Gandi account',
-            },
-            self._validate_sharing_id
+            {},
+            self._validate
         )
 
 
@@ -71,4 +79,8 @@ class Authenticator(dns_common.DNSAuthenticator):
 
 
     def _get_gandi_config(self):
-        return gandi_api.get_config(api_key = self.credentials.conf('api-key'), sharing_id = self.credentials.conf('sharing-id'))
+        return gandi_api.get_config(
+            api_key = self.credentials.conf('api-key'),
+            sharing_id = self.credentials.conf('sharing-id'),
+            personal_access_token = self.credentials.conf('token'),
+        )
