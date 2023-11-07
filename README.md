@@ -13,15 +13,12 @@ customers to prove control of a domain name.
 2. Install the plugin using `pip install certbot-plugin-gandi`
 
 3. Create a `gandi.ini` config file with the following contents and apply `chmod 600 gandi.ini` on it:
+   ```conf
+   # Gandi personal access token
+   dns_gandi_token=PERSONAL_ACCESS_TOKEN
    ```
-   # live dns v5 api key
-   dns_gandi_api_key=APIKEY
-
-   # optional organization id, remove it if not used
-   dns_gandi_sharing_id=SHARINGID
-   ```
-   Replace `APIKEY` with your Gandi API key and ensure permissions are set
-   to disallow access to other users.
+   Replace `PERSONAL_ACCESS_TOKEN` with your Gandi personal access token and ensure permissions are set
+   to disallow access to other users. You can also use a Gandi LiveDNS API Key instead, see FAQ below.
 
 4. Run `certbot` and direct it to use the plugin for authentication and to use
    the config file previously created:
@@ -69,6 +66,20 @@ You can setup automatic renewal using `crontab` with the following job for weekl
 * A [blog post](https://www.linux.it/~ema/posts/letsencrypt-the-manual-plugin-is-not-working/) by [@realEmaRocca](https://twitter.com/realEmaRocca) describing how to use this plugin on Debian
 
 ## FAQ
+
+> I don't have a personal access token, only a Gandi LiveDNS API Key
+
+Use the following configuration in your `gandi.ini` file instead:
+
+```conf
+# live dns v5 api key
+dns_gandi_api_key=APIKEY
+
+# optional organization id, remove it if not used
+dns_gandi_sharing_id=SHARINGID
+```
+Replace `APIKEY` with your Gandi API key and ensure permissions are set
+to disallow access to other users.
 
 > I have a warning telling me `Plugin legacy name certbot-plugin-gandi:dns may be removed in a future version. Please use dns instead.`
 
