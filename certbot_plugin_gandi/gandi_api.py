@@ -1,5 +1,4 @@
 import requests
-import six
 
 from collections import namedtuple
 from certbot.plugins import dns_common
@@ -107,5 +106,3 @@ def del_txt_record(cfg, domain, name, value):
         return _update_txt_record(cfg, base_domain, relative_name, rrset)
 
     return _update_record(cfg, domain, name, requester)
-
-
