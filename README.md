@@ -6,11 +6,9 @@ customers to prove control of a domain name.
 
 ## Usage
 
-> /!\ Certbot 1.7.0 imposed breaking changes on this plugin, make sure to remove any prefix-based configuration
-
 1. Obtain a Gandi API token (see [Gandi LiveDNS API](https://doc.livedns.gandi.net/))
 
-2. Install the plugin using `pip install certbot-plugin-gandi`
+2. Install the plugin using `pip install certbot-dns-gandi`
 
 3. Create a `gandi.ini` config file with the following contents and apply `chmod 600 gandi.ini` on it:
    ```conf
@@ -38,7 +36,7 @@ Be aware that the plugin configuration must be provided by CLI, configuration fo
 
 PyPI is the upstream distribution channel, other channels are not maintained by me.
 
-* PyPI: https://pypi.org/project/certbot-plugin-gandi/
+* PyPI: https://pypi.org/project/certbot-dns-gandi
 * Archlinux: https://aur.archlinux.org/packages/certbot-dns-gandi-git/
 * Debian: https://packages.debian.org/sid/main/python3-certbot-dns-gandi
 * Snap: Not yet packaged. I'm lazy.
@@ -74,7 +72,6 @@ Live DNS API keys are deprecated and now unusable.
 > I have a warning telling me `Plugin legacy name certbot-plugin-gandi:dns may be removed in a future version. Please use dns instead.`
 
 Certbot had moved to remove 3rd party plugins prefixes since v1.7.0. Please switch to the new configuration format and remove any used prefix-based configuration.
-For the time being, you can still use prefixes, but if you do so and keep using prefix-based cli arguments, stay consistent and use prefix-based configuration in the ini file.
 
 > Why do you keep this plugin a third-party plugin ? Just merge it with certbot ?
 
