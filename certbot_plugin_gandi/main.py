@@ -51,10 +51,10 @@ class Authenticator(dns_common.DNSAuthenticator):
         self._validate_sharing_id(credentials)
 
         # Either api-key or token must be set
-        if not credentials.conf('api-key') and not credentials.conf('token'):
+        if not credentials.conf('token'):
             raise errors.PluginError(
                 'Missing property in credentials configuration file {0}: {1}'.format(
-                    credentials.confobj.filename, 'dns_gandi_api_key or dns_gandi_token must be set')
+                    credentials.confobj.filename, 'dns_gandi_token must be set')
                 )
 
     def _setup_credentials(self):
@@ -80,7 +80,6 @@ class Authenticator(dns_common.DNSAuthenticator):
 
     def _get_gandi_config(self):
         return gandi_api.get_config(
-            api_key = self.credentials.conf('api-key'),
             sharing_id = self.credentials.conf('sharing-id'),
             personal_access_token = self.credentials.conf('token'),
         )

@@ -14,11 +14,14 @@ customers to prove control of a domain name.
 
 3. Create a `gandi.ini` config file with the following contents and apply `chmod 600 gandi.ini` on it:
    ```conf
-   # Gandi personal access token
-   dns_gandi_token=PERSONAL_ACCESS_TOKEN
+   # Gandi Token
+   dns_gandi_token=TOKEN
+
+   # optional organization id, remove it if not used
+   dns_gandi_sharing_id=SHARINGID
    ```
-   Replace `PERSONAL_ACCESS_TOKEN` with your Gandi personal access token and ensure permissions are set
-   to disallow access to other users. You can also use a Gandi LiveDNS API Key instead, see FAQ below.
+   Replace `TOKEN` with your Gandi personal access token and ensure permissions are set
+   to disallow access to other users.
 
 4. Run `certbot` and direct it to use the plugin for authentication and to use
    the config file previously created:
@@ -38,10 +41,7 @@ PyPI is the upstream distribution channel, other channels are not maintained by 
 * PyPI: https://pypi.org/project/certbot-plugin-gandi/
 * Archlinux: https://aur.archlinux.org/packages/certbot-dns-gandi-git/
 * Debian: https://packages.debian.org/sid/main/python3-certbot-dns-gandi
-* Ubuntu: https://packages.ubuntu.com/kinetic/python3-certbot-dns-gandi
 * Snap: Not yet packaged. I'm lazy.
-
-Latests builds are also available on Launchpad: https://launchpad.net/ubuntu/+source/python-certbot-dns-gandi
 
 Be careful, installing this plugin with PyPI will also install certbot via PyPI which may conflict with any other certbot already installed on your system.
 
@@ -69,54 +69,12 @@ You can setup automatic renewal using `crontab` with the following job for weekl
 
 > I don't have a personal access token, only a Gandi LiveDNS API Key
 
-Use the following configuration in your `gandi.ini` file instead:
-
-```conf
-# live dns v5 api key
-dns_gandi_api_key=APIKEY
-
-# optional organization id, remove it if not used
-dns_gandi_sharing_id=SHARINGID
-```
-Replace `APIKEY` with your Gandi API key and ensure permissions are set
-to disallow access to other users.
+Live DNS API keys are deprecated and now unusable.
 
 > I have a warning telling me `Plugin legacy name certbot-plugin-gandi:dns may be removed in a future version. Please use dns instead.`
 
 Certbot had moved to remove 3rd party plugins prefixes since v1.7.0. Please switch to the new configuration format and remove any used prefix-based configuration.
 For the time being, you can still use prefixes, but if you do so and keep using prefix-based cli arguments, stay consistent and use prefix-based configuration in the ini file.
-
-#### New post-prefix configuration for certbot>=1.7.0
-* `--authenticator dns-gandi --dns-gandi-credentials`
-* `gandi.ini`
-
-```
-# live dns v5 api key
-dns_gandi_api_key=APIKEY
-
-# optional organization id, remove it if not used
-# if you use certbot<1.7.0 please use certbot_plugin_gandi:dns_sharing_id=SHARINGID
-dns_gandi_sharing_id=SHARINGID
-```
-
-#### Legacy prefix-based configuration for certbot<1.7.0
-
-* `-a certbot-plugin-gandi:dns --certbot-plugin-gandi:dns-credentials`
-* `gandi.ini`
-
-```
- # live dns v5 api key
-certbot_plugin_gandi:dns_api_key=APIKEY
-
-# optional organization id, remove it if not used
-certbot_plugin_gandi:dns_sharing_id=SHARINGID
-```
-
-See [certbot/8131](https://github.com/certbot/certbot/pull/8131) and [certbot-plugin-gandi/23](https://github.com/obynio/certbot-plugin-gandi/issues/23) for details. Please make sure to update the configuration file to the new format.
-
-> I get a `Property "certbot_plugin_gandi:dns_api_key" not found (should be API key for Gandi account).. Skipping.`
-
-See above.
 
 > Why do you keep this plugin a third-party plugin ? Just merge it with certbot ?
 

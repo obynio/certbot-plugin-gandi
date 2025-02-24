@@ -3,11 +3,11 @@ import requests
 from collections import namedtuple
 from certbot.plugins import dns_common
 
-_GandiConfig = namedtuple('_GandiConfig', ('api_key', 'sharing_id', 'personal_access_token',))
+_GandiConfig = namedtuple('_GandiConfig', ('sharing_id', 'personal_access_token',))
 _BaseDomain = namedtuple('_BaseDomain', ('fqdn'))
 
-def get_config(api_key, sharing_id, personal_access_token=None):
-    return _GandiConfig(api_key=api_key, sharing_id=sharing_id, personal_access_token=personal_access_token)
+def get_config(sharing_id, personal_access_token=None):
+    return _GandiConfig(sharing_id=sharing_id, personal_access_token=personal_access_token)
 
 
 def _get_json(response):
@@ -25,8 +25,6 @@ def _get_response_message(response, default='<No reason given>'):
 def _headers(cfg):
     if cfg.personal_access_token:
         auth = 'Bearer ' + cfg.personal_access_token
-    else:
-        auth = 'Apikey ' + cfg.api_key
     return {
         'Content-Type': 'application/json',
         'Authorization': auth,
