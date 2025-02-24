@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name='certbot-plugin-gandi',
+    name='certbot-dns-gandi',
     version='1.6.0',
     author="Yohann Leon",
     author_email="yohann@leon.re",
