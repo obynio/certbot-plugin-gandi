@@ -1,5 +1,5 @@
 [Unit]
-Description=Weekly DNS renewal check
+Description=Certbot weekly renewal
 
 [Timer]
 OnCalendar=weekly

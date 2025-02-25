@@ -4,3 +4,6 @@
 *.swo
 *.egg-info
 
+dist/
+tmp/
+gandi.ini
