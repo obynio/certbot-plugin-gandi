@@ -4,11 +4,14 @@ This is a plugin for [Certbot](https://certbot.eff.org/) that uses the Gandi
 LiveDNS API to allow [Gandi](https://www.gandi.net/)
 customers to prove control of a domain name.
 
+> [!IMPORTANT]  
+> In order to match the naming convention for certbot plugin, the plugin has been repackaged under a new name `certbot-dns-plugin` and legacy owner of the previous package will receive the new package as a dependency.
+
 ## Usage
 
 1. Obtain a Gandi API token (see [Gandi LiveDNS API](https://doc.livedns.gandi.net/))
 
-2. Install the modern plugin and ensure the old plugin name variant is not present:
+2. Install the plugin and ensure the old plugin name variant is not present:
    ```sh
    pip uninstall certbot-plugin-gandi
    pip install certbot-dns-gandi>=1.6.0
@@ -74,6 +77,10 @@ You can setup automatic renewal using `crontab` with the following job for weekl
 * A [blog post](https://www.linux.it/~ema/posts/letsencrypt-the-manual-plugin-is-not-working/) by [@realEmaRocca](https://twitter.com/realEmaRocca) describing how to use this plugin on Debian
 
 ## FAQ
+
+> What's `certbot-plugin-gandi` and `certbot-dns-gandi` ?
+
+Decision was taken to adapt the name of the plugin to the common DNS plugin naming convention `certbot-dns-*` so the legacy package `certbot-plugin-gandi` will be deprecated in favor of `certbot-dns-gandi`.
 
 > I don't have a personal access token, only a Gandi LiveDNS API Key
 
