@@ -5,7 +5,7 @@ LiveDNS API to allow [Gandi](https://www.gandi.net/)
 customers to prove control of a domain name.
 
 > [!IMPORTANT]  
-> In order to match the naming convention for certbot plugin, the plugin has been repackaged under a new name `certbot-dns-plugin` and legacy owner of the previous package will receive the new package as a dependency.
+> In order to match the naming convention for certbot plugin, the plugin has been repackaged under a new name `certbot-dns-plugin` and legacy users of the previous package will receive the new package as a dependency.
 
 ## Usage
 
