@@ -9,7 +9,9 @@ customers to prove control of a domain name.
 
 ## Usage
 
-1. Obtain a Gandi API token (see [Gandi LiveDNS API](https://doc.livedns.gandi.net/))
+1. Obtain a Gandi API Personal Access Token (PAT) - see [Gandi LiveDNS API > Authentication](https://api.gandi.net/docs/authentication/).
+  
+   Your Gandi personal access token requires minimum permissions in the Domains category to work with the plugin: `See and renew domain names` & `Manage domain name technical configurations`.
 
 2. Install the plugin and ensure the old plugin name variant is not present:
    ```sh
@@ -19,16 +21,15 @@ customers to prove control of a domain name.
    
 3. Create a `/etc/letsencrypt/gandi.ini` config file with the following contents:
    ```conf
-   # Gandi Token
-   dns_gandi_token=TOKEN
+   # Gandi personal access token
+   dns_gandi_token=PERSONAL_ACCESS_TOKEN
 
    # optional organization id, remove it if not used
    dns_gandi_sharing_id=SHARINGID
    ```
    Replace `PERSONAL_ACCESS_TOKEN` with your Gandi personal access token.
-   You can also use a Gandi LiveDNS API Key instead, see FAQ below.
   
-4. Ensure permissions are set to disallow access from other users, e.g., using `chmod 0600 gandi.ini`
+4. Ensure permissions are set on `/etc/letsencrypt/gandi.ini` config file to disallow access from other users, e.g., using `chmod 0600 /etc/letsencrypt/gandi.ini`
 
 5. Run `certbot` and direct it to use the plugin for authentication with the config file:
    ```sh
