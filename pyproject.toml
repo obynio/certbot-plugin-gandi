@@ -15,7 +15,7 @@ authors = [
 ]
 
 dependencies = [
-    "certbot>=2.4.0,<4",
+    "certbot>=2.4.0,<6",
     "requests>=2.32.3,<3",
 ]
 
