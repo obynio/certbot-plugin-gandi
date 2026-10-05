@@ -47,7 +47,6 @@ PyPI is the upstream distribution channel, other channels are not maintained by 
 
 * PyPI: https://pypi.org/project/certbot-dns-gandi
 * Archlinux: https://aur.archlinux.org/packages/certbot-dns-gandi-git/
-* Debian: https://packages.debian.org/sid/main/python3-certbot-dns-gandi
 * PyPI: https://pypi.org/project/certbot-dns-gandi/
 
 ```sh
@@ -72,10 +71,6 @@ You can setup automatic renewal using `crontab` with the following job for weekl
 ```
 0 0 * * 0 certbot renew -q --authenticator dns-gandi --dns-gandi-credentials /etc/letsencrypt/gandi/gandi.ini --server https://acme-v02.api.letsencrypt.org/directory
 ```
-
-## Reading material
-
-* A [blog post](https://www.linux.it/~ema/posts/letsencrypt-the-manual-plugin-is-not-working/) by [@realEmaRocca](https://twitter.com/realEmaRocca) describing how to use this plugin on Debian
 
 ## FAQ
 
